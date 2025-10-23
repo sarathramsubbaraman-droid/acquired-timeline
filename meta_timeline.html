@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta: The Complete Timeline | A Mark Zuckerberg Production</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1c1e21;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1877f2 0%, #0a66c2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .header .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            padding: 60px 40px;
+        }
+
+        .era {
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .era-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid;
+        }
+
+        .era-number {
+            font-size: 4em;
+            font-weight: 900;
+            opacity: 0.1;
+            margin-right: 20px;
+            line-height: 1;
+        }
+
+        .era-title {
+            flex: 1;
+        }
+
+        .era-title h2 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .era-title .era-subtitle {
+            font-size: 1.1em;
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        /* Era Color Themes */
+        .era-origins { --era-color: #667eea; }
+        .era-college { --era-color: #f093fb; }
+        .era-platform { --era-color: #fa709a; }
+        .era-mobile { --era-color: #fee140; }
+        .era-acquisitions { --era-color: #30cfd0; }
+        .era-scandals { --era-color: #a8edea; }
+        .era-metaverse { --era-color: #ff6b6b; }
+        .era-efficiency { --era-color: #4ecdc4; }
+
+        .era-origins .era-header { border-color: var(--era-color); color: var(--era-color); }
+        .era-college .era-header { border-color: var(--era-color); color: var(--era-color); }
+        .era-platform .era-header { border-color: var(--era-color); color: var(--era-color); }
+        .era-mobile .era-header { border-color: var(--era-color); color: var(--era-color); }
+        .era-acquisitions .era-header { border-color: var(--era-color); color: var(--era-color); }
+        .era-scandals .era-header { border-color: var(--era-color); color: var(--era-color); }
+        .era-metaverse .era-header { border-color: var(--era-color); color: var(--era-color); }
+        .era-efficiency .era-header { border-color: var(--era-color); color: var(--era-color); }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--era-color), rgba(0,0,0,0.1));
+        }
+
+        .event {
+            position: relative;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 5px solid var(--era-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .event:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .event::before {
+            content: '';
+            position: absolute;
+            left: -47px;
+            top: 30px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--era-color);
+            border: 4px solid white;
+            box-shadow: 0 0 0 2px var(--era-color);
+        }
+
+        .event-date {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: var(--era-color);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .event-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1c1e21;
+        }
+
+        .event-people {
+            font-size: 0.9em;
+            color: #65676b;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .event-people strong {
+            color: #1c1e21;
+        }
+
+        .event-description {
+            margin-bottom: 12px;
+            color: #1c1e21;
+        }
+
+        .event-impact {
+            padding: 15px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 8px;
+            border-left: 3px solid var(--era-color);
+        }
+
+        .event-impact strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--era-color);
+        }
+
+        .inflection-point {
+            border: 3px solid var(--era-color);
+            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 100%);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .inflection-point::after {
+            content: '⭐';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 2em;
+            opacity: 0.3;
+        }
+
+        .inflection-point:hover {
+            transform: translateX(15px) scale(1.02);
+        }
+
+        .metric-box {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--era-color);
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+            font-size: 0.9em;
+        }
+
+        .battle-outcome {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            background: #f0f2f5;
+        }
+
+        .battle-outcome.won {
+            border-left: 5px solid #00ba88;
+            background: #e6f9f4;
+        }
+
+        .battle-outcome.lost {
+            border-left: 5px solid #ff6b6b;
+            background: #ffe6e6;
+        }
+
+        .battle-outcome.stalemate {
+            border-left: 5px solid #ffa500;
+            background: #fff4e6;
+        }
+
+        .summary {
+            background: linear-gradient(135deg, #1877f2 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            margin-top: 60px;
+        }
+
+        .summary h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .summary-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .summary-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        .summary-card ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .summary-card li {
+            padding: 8px 0 8px 25px;
+            position: relative;
+        }
+
+        .summary-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            background: #f8f9fa;
+            color: #65676b;
+        }
+
+        .footer a {
+            color: #1877f2;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header .subtitle {
+                font-size: 1.1em;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .era-title h2 {
+                font-size: 1.5em;
+            }
+
+            .event-title {
+                font-size: 1.2em;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .quote {
+            font-style: italic;
+            padding: 15px;
+            background: rgba(0,0,0,0.02);
+            border-left: 4px solid var(--era-color);
+            margin: 15px 0;
+            color: #65676b;
+        }
+
+        .financial-milestone {
+            background: linear-gradient(135deg, #00ba88 0%, #00d4aa 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📘 Meta: The Complete Timeline</h1>
+            <div class="subtitle">A Mark Zuckerberg Production</div>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">4B</span>
+                    <span class="stat-label">Monthly Users</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">3B+</span>
+                    <span class="stat-label">Daily Users</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50%</span>
+                    <span class="stat-label">Of All Humans</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">20+</span>
+                    <span class="stat-label">Years</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- ERA 1: ORIGINS -->
+            <div class="era era-origins">
+                <div class="era-header">
+                    <div class="era-number">1</div>
+                    <div class="era-title">
+                        <h2>The Origins (1984-2004)</h2>
+                        <div class="era-subtitle">Building the Foundation</div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="event">
+                        <div class="event-date">May 1984</div>
+                        <div class="event-title">Mark Zuckerberg Born</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Karen & Ed Zuckerberg</div>
+                        <div class="event-description">
+                            Born in Dobbs Ferry, NY as second of four children. Father was dentist, mother psychologist. Classic American middle-class upbringing.
+                        </div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">September 1991</div>
+                        <div class="event-title">Civilization: The Game That Shaped Everything</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark (age 7), Sid Meier</div>
+                        <div class="event-description">
+                            Mark discovers Civilization, a 4X strategy game (Explore, Expand, Exploit, Exterminate) with multiple paths to victory.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            The game's strategic thinking becomes Mark's mental model for running Facebook: managing resources, multiple concurrent strategies, adapting to opponents' moves, multiple paths to victory. Not just about defeating enemies, but reaching goals through various methods.
+                        </div>
+                    </div>
+
+                    <div class="event">
+                        <div class="event-date">1994</div>
+                        <div class="event-title">The 10-Year-Old Programmer</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark (age 10)</div>
+                        <div class="event-description">
+                            Mark buys "C++ For Dummies" at Barnes & Noble, teaches himself programming. Parents hire weekly tutor.
+                        </div>
+                        <div class="quote">
+                            "I'd have five whole hours to just sit and write software. Then Friday afternoon would come along and it would be like, okay, wow, now I have two whole days."
+                        </div>
+                    </div>
+
+                    <div class="event">
+                        <div class="event-date">1997</div>
+                        <div class="event-title">ZuckNet & The Birth of Social</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark (age 13), Ed Zuckerberg</div>
+                        <div class="event-description">
+                            Mark builds "ZuckNet," a family chat network connecting computers in house and father's dental office. Same year, AOL launches AIM.
+                        </div>
+                    </div>
+
+                    <div class="event">
+                        <div class="event-date">1998</div>
+                        <div class="event-title">Synapse: The Music Predictor</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark, Adam D'Angelo (future Facebook CTO)</div>
+                        <div class="event-description">
+                            Mark and Adam build Synapse, an AI-powered music player that learns listening habits. Microsoft and AOL try to acquire it. Mark turns them down, choosing Harvard instead.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong> First experience with acquisition offers and choosing vision over cash.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ERA 2: COLLEGE & LAUNCH -->
+            <div class="era era-college">
+                <div class="era-header">
+                    <div class="era-number">2</div>
+                    <div class="era-title">
+                        <h2>College & The Facebook Launch (2004-2006)</h2>
+                        <div class="era-subtitle">From Dorm Room to Phenomenon</div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="event">
+                        <div class="event-date">October 2003</div>
+                        <div class="event-title">FaceMash: The Controversial Beginning</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark Zuckerberg, Harvard administration</div>
+                        <div class="event-description">
+                            Mark hacks Harvard's student ID database, creates "FaceMash" comparing students' photos. Crashes Harvard network from traffic. Nearly expelled.
+                        </div>
+                        <div class="metric-box">22,000 photo views in 4 hours</div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">February 4, 2004</div>
+                        <div class="event-title">🚀 TheFacebook Launches at Harvard</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark Zuckerberg, Dustin Moskovitz, Eduardo Saverin, Chris Hughes</div>
+                        <div class="event-description">
+                            TheFacebook.com goes live exclusively for Harvard students with .edu addresses. Profile pages, friend connections, basic network.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Within 24 hours, 1,200 Harvard students signed up (3/4 of undergrads). Revolutionary insights: Make it exclusive, make it real-identity, make it about your actual social network.
+                        </div>
+                        <div class="metric-box">1,200 users in 24 hours</div>
+                        <div class="metric-box">3/4 of Harvard undergrads</div>
+                    </div>
+
+                    <div class="event">
+                        <div class="event-date">June 2004</div>
+                        <div class="event-title">Moving to Silicon Valley</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark, Dustin, Sean Parker</div>
+                        <div class="event-description">
+                            Mark and Dustin move to Palo Alto, rent house at 819 La Jennifer Way. Sean Parker (Napster founder) becomes advisor.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong> Sean brings Silicon Valley sophistication—teaches about funding, equity, control structures. Protects Mark's control.
+                        </div>
+                        <div class="financial-milestone">💰 Peter Thiel: $500K at ~$5M valuation</div>
+                    </div>
+
+                    <div class="event">
+                        <div class="event-date">September 2004</div>
+                        <div class="event-title">Accel's Big Bet</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Jim Breyer (Accel), Mark</div>
+                        <div class="financial-milestone">💰 $12.7M at $98M valuation</div>
+                        <div class="metric-box">200K users across 34 schools</div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">August 2005</div>
+                        <div class="event-title">📸 Photos Launch - The Game Changer</div>
+                        <div class="event-description">
+                            Facebook launches unlimited photo uploads with person tagging. You can tag friends at XY coordinates, creating links between photos and profiles.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Revolutionary feature—no photo limits (MySpace had 8 max). Person tagging creates viral loop: Tag friends → notifications → more engagement → more photos → more tags. By November, Facebook surpasses Google in daily pageviews.
+                        </div>
+                        <div class="metric-box">230M daily pageviews (more than Google!)</div>
+                        <div class="metric-box">5M users</div>
+                        <div class="metric-box">70% daily active</div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">Summer 2006</div>
+                        <div class="event-title">💰 The Near Miss: Yahoo's $1B Offer</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Terry Semel (Yahoo CEO), Mark</div>
+                        <div class="event-description">
+                            College growth stalls over summer. Yahoo offers $1B (all stock). Mark actually agrees! But Yahoo has bad quarter, stock drops 20%, Semel reduces offer to $800M. Mark walks away.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            History turning on a knife's edge. Mark actually accepted initially—not the "visionary rejection" story told later. This was right after MySpace sold for $580M. The rational optimization was: "I'll never discover something like this again."
+                        </div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">September 2006</div>
+                        <div class="event-title">📰 News Feed: The Revolutionary Moment</div>
+                        <div class="event-description">
+                            Facebook launches News Feed—algorithmic stream of friends' activity. Massive user backlash. 700,000 users join protest groups.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Completely redefines social networking—no longer static profile pages, now a living feed. Despite protests, engagement skyrockets. Mark's lesson: Users hate change but adapt if product is better. News Feed becomes THE core Facebook innovation—every social network copies it.
+                        </div>
+                        <div class="quote">
+                            Mark's response: "Calm down. Breathe. We hear you." (But didn't roll it back)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ERA 3: PLATFORM DREAMS -->
+            <div class="era era-platform">
+                <div class="era-header">
+                    <div class="era-number">3</div>
+                    <div class="era-title">
+                        <h2>Platform Dreams & Advertising Reality (2006-2008)</h2>
+                        <div class="era-subtitle">Finding the Business Model</div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="event inflection-point">
+                        <div class="event-date">May 2007</div>
+                        <div class="event-title">🎯 f8 Platform Launch</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark Zuckerberg</div>
+                        <div class="event-description">
+                            Facebook Platform launches—lets developers build apps on Facebook. Mark's vision: "Facebook doesn't need to be on the web, Facebook can BE the web."
+                        </div>
+                        <div class="metric-box">85,000 developers in 24 hours</div>
+                        <div class="metric-box">FarmVille: 80M+ users</div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">May 2007</div>
+                        <div class="event-title">💎 Microsoft Investment - $15B Valuation</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Steve Ballmer, Mark, Dan Rose</div>
+                        <div class="event-description">
+                            All-night negotiation at Facebook HQ. Microsoft offers to BUY Facebook for ~$24B. Mark turns it down. Instead: $240M investment at $15B valuation + worldwide exclusive ad network partnership.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Less than 2 years after $1B Yahoo offer, Mark turned down $24B! Investment valued at $15B for $150M revenue. Microsoft's investment returns $8B when they sell. Same night, Javier Olivan organizes hackathon to start internationalization.
+                        </div>
+                        <div class="financial-milestone">💰 $240M at $15B valuation (from $1B offer 18 months ago!)</div>
+                    </div>
+
+                    <div class="event">
+                        <div class="event-date">November 2007</div>
+                        <div class="event-title">💥 Beacon: The Epic Failure</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark, Chamath Palihapitiya</div>
+                        <div class="event-description">
+                            Facebook launches Beacon—broadcasts users' purchases to friends' feeds. Privacy nightmare. Someone's engagement gets spoiled by ring purchase broadcasting.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Proves Facebook doesn't understand advertising yet. Killed after weeks. Leads to hiring Sheryl Sandberg and creating Growth team. Mark's realization: "Maybe I don't understand advertising."
+                        </div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">March 2008</div>
+                        <div class="event-title">🎯 Sheryl Sandberg Joins as COO</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Sheryl Sandberg (ex-Google), Mark</div>
+                        <div class="event-description">
+                            Sheryl joins from Google where she built AdWords self-serve business. Takes over ads, operations, sales. Mark focuses on product, engineering, platform.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Mark needs expert who built "greatest digital advertising system in world" at Google. Partnership is also about mentorship—Mark is 23. First move: Full exploration of "should we even be in ads business?" Answer: Yes, but through world-class targeting.
+                        </div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">2008</div>
+                        <div class="event-title">📈 Growth Team Formation</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Chamath, Naomi Gleit, Javier Olivan</div>
+                        <div class="event-description">
+                            After Beacon failure, Chamath needs new role. Facebook creates first-ever dedicated "Growth team."
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Pioneering concept—growth as distinct discipline. Key insight: Getting users to 7 friends in 10 days = retention breakthrough. Drives international expansion to 1B users by 2012. Model copied by every tech company after.
+                        </div>
+                        <div class="metric-box">7 friends in 10 days</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ERA 4: MOBILE -->
+            <div class="era era-mobile">
+                <div class="era-header">
+                    <div class="era-number">4</div>
+                    <div class="era-title">
+                        <h2>Mobile or Die (2009-2012)</h2>
+                        <div class="era-subtitle">The Existential Transition</div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="event">
+                        <div class="event-date">2009-2010</div>
+                        <div class="event-title">📱 The Mobile Blindspot</div>
+                        <div class="event-description">
+                            iPhone and Android taking off. Facebook's mobile strategy is HTML5 web wrapper—slow, buggy, terrible UX.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Facebook built for desktop with mouse clicks and page views. Mobile requires different paradigm. HTML5 bet fails—Mark later admits biggest mistake. Sets up existential crisis: "What if we miss mobile?"
+                        </div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">April 2012</div>
+                        <div class="event-title">📸 Instagram Acquisition - $1B</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark, Kevin Systrom, Mike Krieger</div>
+                        <div class="event-description">
+                            Facebook buys Instagram for $1 billion (30M users, 13 employees, zero revenue). Negotiated in 3 days at Mark's home over Easter weekend.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Everyone thinks Facebook is insane—way overpaying. Mark's insight: Instagram is the mobile-native photo-sharing Facebook should have built. Timing crucial: Closes days before Facebook's IPO. Instagram grows from 30M to 2B+ users—one of best acquisitions in tech history.
+                        </div>
+                        <div class="financial-milestone">💰 $1B for 30M users, 13 employees</div>
+                        <div class="battle-outcome won">
+                            <strong>⚔️ Battle Outcome: WON</strong> — Neutralized mobile-native competitor and learned mobile design
+                        </div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">May 18, 2012</div>
+                        <div class="event-title">📊 Facebook IPO - The Rocky Debut</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark, Sheryl, David Ebersman (CFO)</div>
+                        <div class="event-description">
+                            Facebook goes public at $38/share, $104B valuation. NASDAQ has technical glitches. Stock drops to $17 within months.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Timing terrible—right as mobile threatens entire business. 500M mobile users but mobile monetization basically zero. Stock won't recover above IPO price until September 2013. Creates "Facebook is dead" narrative.
+                        </div>
+                        <div class="financial-milestone">💰 $104B valuation at $38/share</div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">2012-2013</div>
+                        <div class="event-title">💰 Mobile App Ads - The Salvation</div>
+                        <div class="event-description">
+                            Facebook nails mobile with native app rebuilt from scratch. Invents "mobile app install ads" in News Feed.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Complete business model transformation. Mobile app install ads become billion-dollar business—Facebook becomes THE way to market mobile apps. By 2013, mobile revenue exceeds desktop. Stock recovers and never looks back.
+                        </div>
+                        <div class="metric-box">30% of all mobile app marketing spend</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ERA 5: ACQUISITIONS -->
+            <div class="era era-acquisitions">
+                <div class="era-header">
+                    <div class="era-number">5</div>
+                    <div class="era-title">
+                        <h2>Acquisitions & Competitive Battles (2012-2016)</h2>
+                        <div class="era-subtitle">Building the Family of Apps</div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="event inflection-point">
+                        <div class="event-date">February 2014</div>
+                        <div class="event-title">💬 WhatsApp Acquisition - $19B Mega Deal</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark, Jan Koum, Brian Acton</div>
+                        <div class="event-description">
+                            Facebook acquires WhatsApp for $19 billion (450M users, 55 employees, $1/year subscription). Largest venture-backed acquisition ever.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Communications shifting from "town square" (public) to "living room" (private messaging). WhatsApp is THE messaging app internationally—eventually 2B+ users. Locks up global messaging with WhatsApp + Messenger.
+                        </div>
+                        <div class="financial-milestone">💰 $19B for 450M users, 55 employees</div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">March 2014</div>
+                        <div class="event-title">🥽 Oculus Acquisition - $2B VR Bet</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark, Palmer Luckey</div>
+                        <div class="event-description">
+                            Facebook buys Oculus VR for $2B. Kickstarter darling with dev kit, no consumer product yet.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Mark's 10-year bet on next computing platform. Lesson from mobile: Don't miss next platform transition. VR/AR as successor to mobile—need to control hardware to control platform. Starts Reality Labs (will burn $50B+ over decade).
+                        </div>
+                        <div class="financial-milestone">💰 $2B for VR future</div>
+                    </div>
+
+                    <div class="event">
+                        <div class="event-date">2013-2015</div>
+                        <div class="event-title">👻 Snapchat: The One That Got Away</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Evan Spiegel, Mark</div>
+                        <div class="event-description">
+                            Facebook tries to buy Snapchat multiple times—$3B offer rejected. Snapchat pioneering disappearing messages and Stories.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Shows limits of acquisition strategy—some founders won't sell. Forces Facebook to compete through copying.
+                        </div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">August 2016</div>
+                        <div class="event-title">📖 Instagram Stories - The Copy That Worked</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark, Kevin Systrom, Instagram team</div>
+                        <div class="event-description">
+                            Instagram copies Snapchat Stories wholesale. But with algorithmic ranking of whose stories you see, powered by Facebook's AI/ML.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Shameless copy works because: (1) Instagram has the network, (2) Algorithmic ranking makes it better, (3) No need to leave Instagram. Within a year, Instagram Stories has more daily users than all of Snapchat.
+                        </div>
+                        <div class="battle-outcome won">
+                            <strong>⚔️ Battle Outcome: WON</strong> — Stories copied, Snapchat momentum stopped
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ERA 6: SCANDALS -->
+            <div class="era era-scandals">
+                <div class="era-header">
+                    <div class="era-number">6</div>
+                    <div class="era-title">
+                        <h2>Scandals & Existential Threats (2016-2020)</h2>
+                        <div class="era-subtitle">The Reckoning</div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="event">
+                        <div class="event-date">2016</div>
+                        <div class="event-title">🗳️ Election Interference & Fake News</div>
+                        <div class="event-description">
+                            Russian interference in 2016 US election via Facebook. Fake news spreads virally. Cambridge Analytica (later revealed) harvested 87M profiles.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Shatters idealistic "connecting people" narrative. "Move fast and break things" created real-world harm. Beginning of "tech backlash" era.
+                        </div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">March 2018</div>
+                        <div class="event-title">🚨 Cambridge Analytica Scandal</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark, Christopher Wylie (whistleblower)</div>
+                        <div class="event-description">
+                            Revealed Cambridge Analytica harvested 87M Facebook users' data via quiz app (only 270K consented). Used for political targeting.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Global crisis—#DeleteFacebook trends. Mark testifies before Congress. $5B FTC fine (largest in FTC history). Stock drops 19% in one day—$119B market cap loss (largest single-day loss in history at the time).
+                        </div>
+                        <div class="financial-milestone">⚠️ $5B FTC fine</div>
+                        <div class="metric-box">$119B lost in one day</div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">April 2021</div>
+                        <div class="event-title">🍎 iOS 14.5 ATT - Apple's Strike</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Tim Cook, Mark</div>
+                        <div class="event-description">
+                            Apple launches App Tracking Transparency—users must opt-in to tracking. Most click "Ask App Not to Track." Facebook's cross-app data collection collapses.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Fulfills Mark's 2012 fear: Platform owner can cut you off. Ad targeting effectiveness plummets. Revenue hit estimated at $10B+ first year. Shows danger of being "just an app" in someone else's ecosystem.
+                        </div>
+                        <div class="battle-outcome lost">
+                            <strong>⚔️ Battle Outcome: LOST</strong> — Apple's platform control damaged core business
+                        </div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">2018-2020</div>
+                        <div class="event-title">📱 TikTok: The Real Existential Threat</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Zhang Yiming (ByteDance), Mark</div>
+                        <div class="event-description">
+                            TikTok explodes with AI-powered "For You" feed of content from strangers. Not social—just AI-curated media.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Orthogonal threat: Facebook's core asset (social graph) doesn't matter. TikTok proves engagement possible without friends network—just great AI. Threatens Facebook's main competitive advantage. Forces creation of Reels and major AI investment.
+                        </div>
+                        <div class="battle-outcome stalemate">
+                            <strong>⚔️ Battle Outcome: STALEMATE</strong> — Reels competing, both platforms thriving
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ERA 7: METAVERSE -->
+            <div class="era era-metaverse">
+                <div class="era-header">
+                    <div class="era-number">7</div>
+                    <div class="era-title">
+                        <h2>The Metaverse Pivot (2021-2022)</h2>
+                        <div class="era-subtitle">Betting Everything on AR/VR</div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="event inflection-point">
+                        <div class="event-date">October 28, 2021</div>
+                        <div class="event-title">🔮 Facebook → Meta Rebrand</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark Zuckerberg</div>
+                        <div class="event-description">
+                            Facebook Inc. rebrands to Meta. Mark announces focus on metaverse—shared virtual worlds via VR/AR.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Biggest brand reinvention in tech history—abandoning most valuable brand for future vision. Escaping "Facebook" toxicity. Doubling down on VR/AR as next platform. Committing to 10+ year bet with $10B+/year spending.
+                        </div>
+                    </div>
+
+                    <div class="event">
+                        <div class="event-date">2021-2022</div>
+                        <div class="event-title">💸 Reality Labs Losses Mount</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Andrew "Boz" Bosworth, Mark</div>
+                        <div class="event-description">
+                            Reality Labs loses $10B in 2021, $13.7B in 2022, continues losing $15-20B/year. Quest 2 sells 15M units but at a loss.
+                        </div>
+                        <div class="metric-box">$10B+ losses per year</div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">2022</div>
+                        <div class="event-title">📉 Stock Collapse</div>
+                        <div class="event-description">
+                            Meta stock falls 76% from peak. Market cap drops from ~$1T to $240B. Apple ATT impact, TikTok competition, metaverse skepticism combine.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Largest market cap destruction in history ($750B+ lost). Investors revolt. Employees demoralized. Mark's control structure saves him—can ignore short-term pressure.
+                        </div>
+                        <div class="metric-box">$750B+ value destroyed</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ERA 8: EFFICIENCY & AI -->
+            <div class="era era-efficiency">
+                <div class="era-header">
+                    <div class="era-number">8</div>
+                    <div class="era-title">
+                        <h2>Efficiency & AI (2023-2024)</h2>
+                        <div class="era-subtitle">The Comeback</div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="event inflection-point">
+                        <div class="event-date">2023</div>
+                        <div class="event-title">⚡ "Year of Efficiency"</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark, leadership team</div>
+                        <div class="event-description">
+                            Meta lays off 21,000+ employees (multiple waves), eliminates middle management, cuts costs. But Reality Labs spending continues.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Mark's admission metaverse timing too aggressive. Return to "founder mode"—leaner, faster. Cuts don't hurt core ads business—revenue accelerates. Stock recovers 3X+ in 2023.
+                        </div>
+                        <div class="metric-box">21,000+ laid off</div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">February 2024</div>
+                        <div class="event-title">🤖 Llama 2 & Open Source AI</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark, Yann LeCun (Chief AI Scientist)</div>
+                        <div class="event-description">
+                            Meta releases Llama 2 open source—competitive with GPT-4, free for commercial use. Massive adoption.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            Radically different from closed approach. Mark's bet: Open source AI commoditizes models → advantage to who has most data and distribution (Meta). Prevents AI layer from becoming bottleneck. Builds goodwill after years of toxicity.
+                        </div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">September 2024</div>
+                        <div class="event-title">👓 Orion AR Glasses Unveiled</div>
+                        <div class="event-people"><strong>Key Figures:</strong> Mark, Andrew Bosworth</div>
+                        <div class="event-description">
+                            Meta shows Orion prototype—actual AR glasses (not VR headset) with holographic displays, neural wristband control, lightweight form factor.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            First credible AR glasses—Apple Vision Pro is $3,500 VR headset. Vindication of Reality Labs spending. Years from consumer launch but proof vision isn't vaporware. If AR glasses work, could be as big as iPhone.
+                        </div>
+                    </div>
+
+                    <div class="event inflection-point">
+                        <div class="event-date">2024</div>
+                        <div class="event-title">🚀 The Meta Comeback Story</div>
+                        <div class="event-description">
+                            Stock up 500%+ from 2022 lows. Market cap back over $1.2T (fourth most valuable company). Revenue hits $135B+.
+                        </div>
+                        <div class="event-impact">
+                            <strong>Why It Matters:</strong>
+                            One of greatest corporate turnarounds ever. Proves Mark's long-term vision over short-term pressures. Meta positioned in three battles: social media (defending), AI (competing), AR/VR (leading). "Move like water" strategy validated.
+                        </div>
+                        <div class="metric-box">3.2B daily users</div>
+                        <div class="metric-box">$1.2T+ market cap</div>
+                        <div class="metric-box">$135B+ revenue</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary">
+            <h2>The Quintessence: What Makes Meta Different</h2>
+            
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>🌊 Moves Like Water</h3>
+                    <p>Meta constantly adapts its shape to fit whatever container (market reality) it finds itself in, while never losing sight of the ultimate goal: connecting humanity.</p>
+                    <ul>
+                        <li>Desktop company → Mobile company → Metaverse company → AI company</li>
+                        <li>No pride in "we invented it"—pride in "we won"</li>
+                        <li>Will be WHATEVER IT NEEDS TO BE to win</li>
+                    </ul>
+                </div>
+
+                <div class="summary-card">
+                    <h3>🎮 The Civilization Framework</h3>
+                    <p>Multiple paths to victory, adapted from Mark's favorite game:</p>
+                    <ul>
+                        <li>Can't buy competitor? Copy them (Snapchat → Stories)</li>
+                        <li>Can buy competitor? Do it (Instagram, WhatsApp, Oculus)</li>
+                        <li>Can't copy or buy? Out-execute (TikTok → Reels)</li>
+                        <li>Can't compete? Invent new paradigm (AR glasses)</li>
+                    </ul>
+                </div>
+
+                <div class="summary-card">
+                    <h3>👑 Founder Control as Superpower</h3>
+                    <p>Mark's voting control allowed patience through:</p>
+                    <ul>
+                        <li>Turning down $1B when growth stalled (2006)</li>
+                        <li>Turning down $24B to build bigger (2007)</li>
+                        <li>Mobile transition pain (2012-2013)</li>
+                        <li>Scandal-plagued years (2016-2020)</li>
+                        <li>$750B+ market cap loss (2022)</li>
+                    </ul>
+                </div>
+
+                <div class="summary-card">
+                    <h3>🎨 Discovery Over Invention</h3>
+                    <p>Few truly original innovations—most success from adopting others' innovations faster/better:</p>
+                    <ul>
+                        <li>Original: News Feed, photo tagging, Platform</li>
+                        <li>Adopted: Stories, Reels, messaging features</li>
+                        <li>"Chiseling marble to find David"</li>
+                        <li>Rapid iteration beats pure invention</li>
+                    </ul>
+                </div>
+
+                <div class="summary-card">
+                    <h3>⚡ The Time Bomb Trade-off</h3>
+                    <p>"Move fast and break things" got to 4B users but created real-world harm:</p>
+                    <ul>
+                        <li>Elections interference, privacy violations</li>
+                        <li>Content moderation at impossible scale</li>
+                        <li>Mental health concerns</li>
+                        <li>Could have been careful → wouldn't be global player</li>
+                        <li>Chose "win first, clean up later"</li>
+                    </ul>
+                </div>
+
+                <div class="summary-card">
+                    <h3>🔮 Looking Forward</h3>
+                    <ul>
+                        <li>Ads business: Mature but growing with AI</li>
+                        <li>Reels vs TikTok: Market stalemate</li>
+                        <li>WhatsApp: Huge untapped opportunity</li>
+                        <li>AI: Open source preventing bottleneck</li>
+                        <li>AR/VR: 5-10 years away, redefines computing</li>
+                        <li>Mental health: Existential risk if proven harmful</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px; padding: 30px; background: rgba(255,255,255,0.1); border-radius: 15px;">
+                <h3 style="font-size: 2em; margin-bottom: 20px;">The Final Word</h3>
+                <p style="font-size: 1.2em; line-height: 1.8; max-width: 900px; margin: 0 auto;">
+                    After 20 years, Meta has connected more humans than any empire, government, or company in history. They did it by being ruthlessly adaptable, strategically flexible, and willing to be whatever shape the world required. The company is still, fundamentally, <strong>a Mark Zuckerberg production</strong>—for better and worse.
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Timeline compiled from Acquired Podcast Episode on Meta</strong></p>
+            <p>October 27, 2024 | 6 hours 19 minutes</p>
+            <p style="margin-top: 20px;">
+                <a href="https://www.acquired.fm" target="_blank">Visit Acquired.fm</a> | 
+                <a href="https://www.acquired.fm/episodes/meta" target="_blank">Listen to Full Episode</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

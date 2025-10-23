@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acquired Tech Episodes - Timelines</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .episode-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .episode-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .episode-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .episode-summary {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .timeline-button {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            text-align: center;
+        }
+
+        .timeline-button:hover {
+            background: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .episodes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📻 Acquired Tech Episodes</h1>
+            <p>Explore the timeline of each company's journey</p>
+        </header>
+
+        <div class="episodes-grid">
+            <!-- NVIDIA Episode -->
+            <div class="episode-card">
+                <div class="episode-icon">🎮</div>
+                <h2 class="episode-title">NVIDIA</h2>
+                <p class="episode-summary">
+                    From gaming GPUs to AI dominance - explore the timeline of Jensen Huang's vision and how NVIDIA became the most valuable chipmaker in the world, powering the AI revolution.
+                </p>
+                <a href="nvidia.html" class="timeline-button">View Timeline →</a>
+            </div>
+
+            <!-- Microsoft Episode -->
+            <div class="episode-card">
+                <div class="episode-icon">💻</div>
+                <h2 class="episode-title">Microsoft</h2>
+                <p class="episode-summary">
+                    Trace Microsoft's evolution from Windows monopoly to cloud computing leader. See how Satya Nadella transformed the company and made its historic OpenAI partnership.
+                </p>
+                <a href="microsoft.html" class="timeline-button">View Timeline →</a>
+            </div>
+
+            <!-- Apple Episode -->
+            <div class="episode-card">
+                <div class="episode-icon">🍎</div>
+                <h2 class="episode-title">Apple</h2>
+                <p class="episode-summary">
+                    Follow Apple's journey from the garage to trillion-dollar company. From the Macintosh to iPhone to the M-series chips - the complete timeline of innovation.
+                </p>
+                <a href="apple.html" class="timeline-button">View Timeline →</a>
+            </div>
+
+            <!-- Google Episode -->
+            <div class="episode-card">
+                <div class="episode-icon">🔍</div>
+                <h2 class="episode-title">Google</h2>
+                <p class="episode-summary">
+                    From Stanford research project to search giant and beyond. Explore the timeline of Google's products, acquisitions, and transformation into Alphabet.
+                </p>
+                <a href="google.html" class="timeline-button">View Timeline →</a>
+            </div>
+
+            <!-- Amazon Episode -->
+            <div class="episode-card">
+                <div class="episode-icon">📦</div>
+                <h2 class="episode-title">Amazon</h2>
+                <p class="episode-summary">
+                    The everything store's evolution from online bookstore to e-commerce and cloud computing titan. See how AWS changed the business model forever.
+                </p>
+                <a href="amazon.html" class="timeline-button">View Timeline →</a>
+            </div>
+
+            <!-- Meta/Facebook Episode -->
+            <div class="episode-card">
+                <div class="episode-icon">👥</div>
+                <h2 class="episode-title">Meta (Facebook)</h2>
+                <p class="episode-summary">
+                    From Harvard dorm room to connecting billions. Track Facebook's journey through social media dominance, acquisitions, and the pivot to the metaverse.
+                </p>
+                <a href="meta.html" class="timeline-button">View Timeline →</a>
+            </div>
+
+            <!-- Add more tech episodes as needed -->
+            
+        </div>
+
+        <footer>
+            <p>Made with ❤️ for Acquired fans | Visit <a href="https://www.acquired.fm" target="_blank">acquired.fm</a></p>
+        </footer>
+    </div>
+</body>
+</html>

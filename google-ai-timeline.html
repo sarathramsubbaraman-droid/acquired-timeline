@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google AI Timeline - Visual History</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2em;
+            margin-bottom: 50px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: white;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-end;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: auto;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid #667eea;
+            border-radius: 50%;
+            z-index: 10;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .year {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .event-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .key-figures {
+            background: #f0f4ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+
+        .key-figures strong {
+            color: #764ba2;
+        }
+
+        .impact {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid #e0e0e0;
+            font-style: italic;
+            color: #555;
+        }
+
+        .era-divider {
+            text-align: center;
+            margin: 60px 0;
+            position: relative;
+        }
+
+        .era-divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 2px;
+            background: white;
+            opacity: 0.3;
+        }
+
+        .era-label {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.5em;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .company-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 5px;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .tag-google {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .tag-openai {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .tag-deepmind {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .tag-microsoft {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 70px);
+                margin-left: 70px !important;
+            }
+
+            .timeline-marker {
+                left: 30px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Google AI Timeline</h1>
+        <p class="subtitle">The Complete History: From PHIL to ChatGPT</p>
+
+        <div class="timeline">
+            <!-- Early 2000s Era -->
+            <div class="era-divider">
+                <span class="era-label">Early 2000s: The Foundations</span>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2001</span>
+                    <div class="event-title">Birth of Language Models at Google</div>
+                    <div class="key-figures">
+                        <strong>Key Figures:</strong> Noam Shazeer, George Harik, Sanjay Ghemawat
+                    </div>
+                    <p>Noam and George begin working on probabilistic models for natural language, creating early language understanding systems.</p>
+                    <div class="impact">
+                        <strong>Impact:</strong> Led to Google's "did you mean" spelling correction feature
+                    </div>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2003</span>
+                    <div class="event-title">PHIL Powers AdSense</div>
+                    <div class="key-figures">
+                        <strong>Key Figure:</strong> Jeff Dean
+                    </div>
+                    <p>Creation of PHIL (Probabilistic Hierarchical Inferential Learner). Jeff Dean uses it to implement AdSense in just one week.</p>
+                    <div class="highlight-box">
+                        💡 By mid-2000s, PHIL was using 15% of Google's entire data center infrastructure
+                    </div>
+                    <div class="impact">
+                        <strong>Impact:</strong> Billions of dollars in new revenue from understanding third-party webpages
+                    </div>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2007-2010 Era -->
+            <div class="era-divider">
+                <span class="era-label">2007-2010: Deep Learning Emerges</span>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2007</span>
+                    <div class="event-title">Google Translate Goes Massive</div>
+                    <div class="key-figures">
+                        <strong>Key Figures:</strong> Franz Och, Jeff Dean, Noam Shazeer
+                    </div>
+                    <p>Franz Och builds n-gram language model trained on 2 trillion words. Initial model took 12 hours to translate a single sentence!</p>
+                    <div class="impact">
+                        <strong>Impact:</strong> Jeff Dean pushes to productionize through distributed computing
+                    </div>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2010</span>
+                    <div class="event-title">DeepMind Founded</div>
+                    <div class="key-figures">
+                        <strong>Founders:</strong> Demis Hassabis, Shane Legg, Mustafa Suleyman
+                    </div>
+                    <p>Mission: "Solve intelligence and use it to solve everything else"</p>
+                    <p><strong>Seed Funding:</strong> ~$2M led by Founders Fund (Peter Thiel)</p>
+                    <p><strong>Investors:</strong> Elon Musk, Luke Nosek</p>
+                    <div class="highlight-box">
+                        🚀 This is where Elon Musk first becomes seriously interested in AI after Demis warns him that AI could follow humans to Mars
+                    </div>
+                    <div>
+                        <span class="company-tag tag-deepmind">DeepMind</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2011-2012 Era -->
+            <div class="era-divider">
+                <span class="era-label">2011-2012: The AlexNet Revolution</span>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2011</span>
+                    <div class="event-title">Google Brain Project Begins</div>
+                    <div class="key-figures">
+                        <strong>Key Figures:</strong> Andrew Ng, Jeff Dean
+                    </div>
+                    <p>Google Brain founded as internal research group. Famous "cat paper" - neural network learns to recognize cats from YouTube videos.</p>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2012</span>
+                    <div class="event-title">AlexNet Changes Everything</div>
+                    <div class="key-figures">
+                        <strong>Team:</strong> Geoff Hinton, Ilya Sutskever, Alex Krizhevsky (U of Toronto)
+                    </div>
+                    <p>AlexNet wins ImageNet competition by massive margin using deep learning and GPUs.</p>
+                    <div class="highlight-box">
+                        ⚡ This moment triggers the global AI race - everyone realizes deep learning works at scale
+                    </div>
+                    <div class="impact">
+                        <strong>Impact:</strong> Google acquires the team for reported $44 million
+                    </div>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2013-2014 Era -->
+            <div class="era-divider">
+                <span class="era-label">2013-2014: The Talent Wars</span>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">Late 2013</span>
+                    <div class="event-title">DeepMind Acquisition Battle</div>
+                    <div class="key-figures">
+                        <strong>Players:</strong> Larry Page, Mark Zuckerberg, Elon Musk, Demis Hassabis
+                    </div>
+                    <p><strong>Facebook offers:</strong> ~$800 million<br>
+                    <strong>Elon offers:</strong> Tesla stock (would've been 70x by 2025!)<br>
+                    <strong>How Larry found out:</strong> Watching Breakout demo on Elon's private jet</p>
+                    <div class="highlight-box">
+                        🎯 Larry Page and Demis Hassabis bond over shared vision of AI as the future
+                    </div>
+                    <div>
+                        <span class="company-tag tag-deepmind">DeepMind</span>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">January 2014</span>
+                    <div class="event-title">Google Acquires DeepMind</div>
+                    <div class="key-figures">
+                        <strong>Deal Terms:</strong> ~$400-500 million
+                    </div>
+                    <p>Google creates independent ethics board for AGI oversight. DeepMind remains separate research org in London.</p>
+                    <div class="impact">
+                        <strong>Impact:</strong> This acquisition (and Elon's frustration with it) plants seeds for OpenAI
+                    </div>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                        <span class="company-tag tag-deepmind">DeepMind</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2015-2017 Era -->
+            <div class="era-divider">
+                <span class="era-label">2015-2017: The Transformer Era</span>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">December 2015</span>
+                    <div class="event-title">OpenAI Founded</div>
+                    <div class="key-figures">
+                        <strong>Founders:</strong> Sam Altman, Elon Musk, Ilya Sutskever, Greg Brockman
+                    </div>
+                    <p>Founded as non-profit AI research lab with ~$1B commitment</p>
+                    <p><strong>Mission:</strong> Develop safe AGI for benefit of humanity</p>
+                    <div class="highlight-box">
+                        💥 Sparked by Elon's fury over Google's DeepMind acquisition and Tesla recruiting challenges
+                    </div>
+                    <div>
+                        <span class="company-tag tag-openai">OpenAI</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2016</span>
+                    <div class="event-title">AlphaGo Defeats Lee Sedol</div>
+                    <div class="key-figures">
+                        <strong>Company:</strong> DeepMind
+                    </div>
+                    <p>Global demonstration of AI capabilities in mastering the ancient game of Go.</p>
+                    <div>
+                        <span class="company-tag tag-deepmind">DeepMind</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2017</span>
+                    <div class="event-title">🎯 The Transformer Paper</div>
+                    <div class="key-figures">
+                        <strong>Authors:</strong> Ashish Vaswani, Noam Shazeer, and team (Google Brain)
+                    </div>
+                    <p><strong>Paper:</strong> "Attention Is All You Need"</p>
+                    <div class="highlight-box">
+                        🚨 THIS IS THE BIG ONE: This single breakthrough enables ALL modern AI (ChatGPT, Claude, Gemini, etc.)
+                    </div>
+                    <p><strong>Critical Mistake:</strong> Google publishes openly rather than keeping proprietary</p>
+                    <div class="impact">
+                        <strong>Impact:</strong> The paper's last paragraph explicitly mentions applying transformers to images, audio, and video - but Google doesn't act on it
+                    </div>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">Post-2017</span>
+                    <div class="event-title">Noam's Internal Chatbot "Mina"</div>
+                    <div class="key-figures">
+                        <strong>Creator:</strong> Noam Shazeer
+                    </div>
+                    <p>Noam builds internal chatbot and advocates replacing Google Search with chatbot interface.</p>
+                    <div class="highlight-box">
+                        ⚠️ <strong>Google Rejects It Due To:</strong><br>
+                        • Revenue concerns (ads vs. direct answers)<br>
+                        • Legal risks (publisher relationships)<br>
+                        • Safety concerns (no RLHF training)<br>
+                        • Brand trust issues
+                    </div>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2018-2019 Era -->
+            <div class="era-divider">
+                <span class="era-label">2018-2019: OpenAI-Microsoft Alliance</span>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">July 2018</span>
+                    <div class="event-title">Microsoft-OpenAI Partnership</div>
+                    <div class="key-figures">
+                        <strong>Deal Makers:</strong> Sam Altman, Satya Nadella
+                    </div>
+                    <p><strong>Location:</strong> Allen & Company Sun Valley Conference</p>
+                    <p><strong>Deal:</strong> $1B investment (cash + Azure credits)</p>
+                    <p>OpenAI creates for-profit subsidiary controlled by non-profit. Microsoft gets exclusive license.</p>
+                    <div class="highlight-box">
+                        🎭 "We just want to see them dance" - Eventually: "We want the world to know we made Google dance"
+                    </div>
+                    <div>
+                        <span class="company-tag tag-openai">OpenAI</span>
+                        <span class="company-tag tag-microsoft">Microsoft</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2019</span>
+                    <div class="event-title">GPT-2 Released</div>
+                    <p>First major GPT model. Requires developer expertise, no consumer interface yet.</p>
+                    <div>
+                        <span class="company-tag tag-openai">OpenAI</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2020-2022 Era -->
+            <div class="era-divider">
+                <span class="era-label">2020-2022: The ChatGPT Revolution</span>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">June 2020</span>
+                    <div class="event-title">GPT-3 Released</div>
+                    <p>Much more capable - can pass early Turing tests. Still API-only, no consumer interface.</p>
+                    <div class="impact">
+                        <strong>Impact:</strong> Major hype begins in tech community. AI pitch decks to VCs tick up.
+                    </div>
+                    <div>
+                        <span class="company-tag tag-openai">OpenAI</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">Summer 2021</span>
+                    <div class="event-title">GitHub Copilot Launches</div>
+                    <p>First productization of GPT technology, built on GPT-3.</p>
+                    <div class="impact">
+                        <strong>Impact:</strong> Transforms how software is written. "Slowly, then all at once."
+                    </div>
+                    <div>
+                        <span class="company-tag tag-microsoft">Microsoft</span>
+                        <span class="company-tag tag-openai">OpenAI</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2021</span>
+                    <div class="event-title">Microsoft's Second Investment</div>
+                    <p>Microsoft invests another $2 billion in OpenAI (seemed like a lot at the time!).</p>
+                    <div>
+                        <span class="company-tag tag-microsoft">Microsoft</span>
+                        <span class="company-tag tag-openai">OpenAI</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">November 19, 2021</span>
+                    <div class="event-title">Google Hits Market Peak</div>
+                    <p>Google reaches $2 trillion market cap. Over next year, drops to $1 trillion (50% drawdown).</p>
+                    <div class="highlight-box">
+                        📉 Market sentiment: Google seems slow and unadaptive, like "Microsoft of the 2000s"
+                    </div>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">November 2022</span>
+                    <div class="event-title">💥 ChatGPT LAUNCHES</div>
+                    <div class="key-figures">
+                        <strong>Key Figure:</strong> Sam Altman
+                    </div>
+                    <p>Sam suggests making chatbot interface to GPT-3.5. Built in about a week internally.</p>
+                    <div class="highlight-box">
+                        🌟 <strong>IMMEDIATE VIRAL SUCCESS:</strong><br>
+                        • Servers overwhelmed<br>
+                        • OpenAI scrambles for more Azure compute<br>
+                        • Catches Google completely flat-footed<br>
+                        • Becomes "the Kleenex of the AI era"
+                    </div>
+                    <div>
+                        <span class="company-tag tag-openai">OpenAI</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2023-2025 Era -->
+            <div class="era-divider">
+                <span class="era-label">2023-2025: Google's Response</span>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2023</span>
+                    <div class="event-title">🚨 Code Red at Google</div>
+                    <p>Google declares "code red" internally after ChatGPT launch. All-hands mobilization to respond.</p>
+                    <p>Accelerated development of Bard (later renamed Gemini).</p>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2024</span>
+                    <div class="event-title">Gemini Launches</div>
+                    <p>Google launches Gemini as unified AI model. Integrates across Google products. Competes directly with ChatGPT and Claude.</p>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">2024-2025</span>
+                    <div class="event-title">Antitrust Case Resolved</div>
+                    <p>US vs. Google antitrust case concludes. Judge rules Google is monopoly in search.</p>
+                    <div class="highlight-box">
+                        ⚖️ <strong>Result:</strong> No material remedies imposed!<br>
+                        Judge cites AI competition as reason not to break up Google.<br>
+                        Google avoids Microsoft-style 1990s antitrust distraction.
+                    </div>
+                    <div class="impact">
+                        <strong>The Irony:</strong> Ilya leaving Google to start OpenAI → ultimately saves Google from breakup
+                    </div>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current State -->
+            <div class="era-divider">
+                <span class="era-label">Current State (Fall 2025)</span>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="year">Fall 2025</span>
+                    <div class="event-title">📊 Google Today: Still the Best Business</div>
+                    <p><strong>Revenue:</strong> $370B (last 12 months)<br>
+                    <strong>Profit:</strong> $140B (most profitable tech company)<br>
+                    <strong>Market Cap:</strong> $3 trillion (4th most valuable)<br>
+                    <strong>Cash:</strong> $95B (down from $140B in 2021)</p>
+                    
+                    <p><strong>Google One:</strong> 150M paying subscribers (50% YoY growth)</p>
+                    
+                    <div class="highlight-box">
+                        <strong>Key Products:</strong><br>
+                        • Gemini (top-tier AI model)<br>
+                        • Google Cloud ($50B revenue)<br>
+                        • TPUs (only large-scale AI chips besides NVIDIA)<br>
+                        • Waymo (more rides than Lyft in SF)
+                    </div>
+                    <div>
+                        <span class="company-tag tag-google">Google</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="background: white; padding: 40px; border-radius: 15px; margin-top: 60px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+            <h2 style="color: #667eea; text-align: center; margin-bottom: 20px;">The Innovator's Dilemma</h2>
+            <p style="font-size: 1.1em; line-height: 1.8; color: #555;">
+                Google <strong>invented the Transformer</strong> (2017), employed <strong>nearly all top AI talent</strong> circa 2014, 
+                had the <strong>best infrastructure</strong> (TPUs), and deployed AI at <strong>massive scale</strong> before anyone else. 
+                Yet ChatGPT caught them completely flat-footed.
+            </p>
+            <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h3 style="color: #856404; margin-bottom: 15px;">Why?</h3>
+                <ul style="color: #856404; line-height: 2;">
+                    <li><strong>Revenue conflict:</strong> AI answers threaten $140B search ads business</li>
+                    <li><strong>Legal concerns:</strong> Decades fighting publisher disintermediation perception</li>
+                    <li><strong>Brand trust:</strong> Google Search was trusted; chatbots were unproven</li>
+                    <li><strong>No market demand:</strong> Until ChatGPT, consumers didn't know they wanted this</li>
+                    <li><strong>Cultural barriers:</strong> Very high bar for products competing with search</li>
+                </ul>
+            </div>
+            <p style="font-size: 1.2em; text-align: center; color: #667eea; font-weight: bold; margin-top: 30px;">
+                The Question: Can Google disrupt themselves without destroying their profit machine?
+            </p>
+        </div>
+
+        <div style="text-align: center; color: white; margin-top: 40px; padding: 20px;">
+            <p style="font-size: 0.9em; opacity: 0.8;">Timeline compiled from Acquired Podcast "Google: The AI Company" (Fall 2025, Episode 1)</p>
+        </div>
+    </div>
+</body>
+</html>
