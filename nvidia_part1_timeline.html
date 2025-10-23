@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVIDIA Part I: The GPU Company (1993-2006) - Interactive Timeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #76b900 0%, #4a9d00 100%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(118, 185, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #f0f0f0;
+            font-weight: 300;
+            margin-top: 15px;
+        }
+
+        .hero-quote {
+            font-style: italic;
+            font-size: 1.2em;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            color: #ffffff;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .legend-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .era-section {
+            margin-bottom: 60px;
+        }
+
+        .era-header {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-left: 5px solid #76b900;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #76b900 0%, #4a9d00 100%);
+        }
+
+        .event {
+            position: relative;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .event:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .event::before {
+            content: '';
+            position: absolute;
+            left: -53px;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: inherit;
+            border: 4px solid #76b900;
+            box-shadow: 0 0 0 4px rgba(26, 26, 46, 1);
+        }
+
+        .event-date {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #76b900;
+        }
+
+        .event-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .event-people {
+            font-size: 0.95em;
+            color: #a0a0a0;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .event-content {
+            font-size: 1.05em;
+            color: #d0d0d0;
+            margin-bottom: 15px;
+        }
+
+        .event-impact {
+            padding: 15px;
+            background: rgba(118, 185, 0, 0.1);
+            border-left: 3px solid #76b900;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .event-impact-title {
+            font-weight: 700;
+            color: #76b900;
+            margin-bottom: 8px;
+        }
+
+        /* Color coding for different eras */
+        .founding { border-left-color: #00d4ff; }
+        .founding::before { background: #00d4ff; border-color: #00d4ff; }
+
+        .near-death-1 { border-left-color: #ff4444; }
+        .near-death-1::before { background: #ff4444; border-color: #ff4444; }
+
+        .miracle { border-left-color: #ffd700; }
+        .miracle::before { background: #ffd700; border-color: #ffd700; }
+
+        .ipo-era { border-left-color: #00ff88; }
+        .ipo-era::before { background: #00ff88; border-color: #00ff88; }
+
+        .intel-threat { border-left-color: #ff6b35; }
+        .intel-threat::before { background: #ff6b35; border-color: #ff6b35; }
+
+        .strategic-pivot { border-left-color: #9b59b6; }
+        .strategic-pivot::before { background: #9b59b6; border-color: #9b59b6; }
+
+        .early-life { border-left-color: #3498db; }
+        .early-life::before { background: #3498db; border-color: #3498db; }
+
+        .inflection-point {
+            background: linear-gradient(135deg, rgba(255, 68, 68, 0.2) 0%, rgba(255, 107, 53, 0.2) 100%);
+            border: 2px solid #ff4444;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .inflection-point .event-title {
+            color: #ff4444;
+            font-size: 2.2em;
+        }
+
+        .stats-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat {
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #76b900;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #a0a0a0;
+            margin-top: 5px;
+        }
+
+        .competitive-landscape {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .competitor {
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border-left: 4px solid;
+        }
+
+        .competitor.nvidia { border-left-color: #76b900; }
+        .competitor.microsoft { border-left-color: #00a4ef; }
+        .competitor.intel { border-left-color: #0071c5; }
+        .competitor.ati { border-left-color: #ed1c24; }
+
+        .insights-section {
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(118, 185, 0, 0.1) 0%, rgba(74, 157, 0, 0.1) 100%);
+            border-radius: 20px;
+            border: 2px solid rgba(118, 185, 0, 0.3);
+        }
+
+        .insights-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #76b900;
+        }
+
+        .insight-card {
+            background: rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 5px solid #76b900;
+            transition: transform 0.3s ease;
+        }
+
+        .insight-card:hover {
+            transform: translateX(10px);
+        }
+
+        .insight-card h3 {
+            color: #76b900;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .quote-box {
+            background: rgba(0,0,0,0.3);
+            padding: 25px;
+            border-left: 5px solid #76b900;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .quote-author {
+            text-align: right;
+            margin-top: 15px;
+            color: #76b900;
+            font-weight: 700;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            margin-top: 60px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 15px;
+            color: #a0a0a0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+            }
+
+            .timeline {
+                padding-left: 30px;
+            }
+
+            .timeline::before {
+                left: 10px;
+            }
+
+            .event::before {
+                left: -43px;
+            }
+
+            .era-header {
+                font-size: 1.8em;
+            }
+
+            .event-title {
+                font-size: 1.3em;
+            }
+        }
+
+        .swimlane-container {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px;
+        }
+
+        .swimlane {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            align-items: center;
+        }
+
+        .swimlane-label {
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .swimlane-events {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .swimlane-event {
+            padding: 10px 15px;
+            background: rgba(118, 185, 0, 0.2);
+            border-radius: 8px;
+            white-space: nowrap;
+            font-size: 0.9em;
+            border-left: 3px solid #76b900;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 NVIDIA PART I 🎮</h1>
+            <div class="subtitle">THE GPU COMPANY (1993-2006)</div>
+            <div class="hero-quote">
+                "My will to survive exceeds almost everybody else's will to kill me."<br>
+                <strong>— Jensen Huang</strong>
+            </div>
+        </header>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #3498db;"></div>
+                <span>Early Life & Education</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #00d4ff;"></div>
+                <span>Founding Era</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff4444;"></div>
+                <span>Near-Death Crisis</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ffd700;"></div>
+                <span>Breakthrough/Miracle</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #00ff88;"></div>
+                <span>Growth & IPO</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff6b35;"></div>
+                <span>Intel Threat</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #9b59b6;"></div>
+                <span>Strategic Pivot</span>
+            </div>
+        </div>
+
+        <!-- PROLOGUE -->
+        <div class="era-section">
+            <div class="era-header">📖 PROLOGUE: The Making of Jensen Huang (1963-1992)</div>
+            <div class="timeline">
+                <div class="event early-life">
+                    <div class="event-date">1963</div>
+                    <div class="event-title">Birth in Taiwan</div>
+                    <div class="event-people">👤 Jen-Hsun "Jensen" Huang</div>
+                    <div class="event-content">
+                        Born in Tainan, Taiwan. Father works as engineer for Carrier (air conditioning company).
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        Jensen's immigrant journey and unusual upbringing would forge the resilience that saved NVIDIA three times.
+                    </div>
+                </div>
+
+                <div class="event early-life inflection-point">
+                    <div class="event-date">1972</div>
+                    <div class="event-title">🔥 Reform School Revelation</div>
+                    <div class="event-people">👤 Jensen (age 9), 17-year-old roommate with 7 stab wounds</div>
+                    <div class="event-content">
+                        <strong>Parents unknowingly send Jensen to reform school</strong> (Oneida Baptist Institute, Kentucky) thinking it's a prep school. Jensen becomes roommate with 17-year-old recovering from knife fight who just got out of prison. They become friends—roommate teaches Jensen weightlifting, Jensen helps with math.
+                        <div class="quote-box">
+                            "I don't get scared very often. I can tolerate a lot of discomfort. Boy, does that play out in my life."
+                            <div class="quote-author">— Jensen Huang, on his time at OBI</div>
+                        </div>
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        This formative experience built Jensen's legendary resilience. He's been weightlifting since age 9. First foreigners and likely first Chinese people in the town.
+                    </div>
+                </div>
+
+                <div class="event early-life">
+                    <div class="event-date">1980</div>
+                    <div class="event-title">Table Tennis Champion</div>
+                    <div class="event-people">👤 Jensen Huang (teenage years)</div>
+                    <div class="event-content">
+                        Places 3rd in junior nationals for table tennis. Featured in Sports Illustrated. Skips two grades. Attends Oregon State University at age 16.
+                    </div>
+                </div>
+
+                <div class="event early-life">
+                    <div class="event-date">1984-1992</div>
+                    <div class="event-title">Silicon Valley Apprenticeship</div>
+                    <div class="event-people">👤 Jensen, Lori (wife), Andy Bechtolsheim, Vinod Khosla</div>
+                    <div class="event-content">
+                        <strong>1984:</strong> Graduates OSU, joins AMD working on 1MHz CPU ("you can see it coming")<br>
+                        <strong>Mid-1980s:</strong> Moves to LSI Logic (Sequoia's $153M IPO). Embeds with Sun Microsystems.<br>
+                        <strong>1992:</strong> Finishes Stanford Master's (took 8 years at night while working)
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        Jensen learned chip design should be democratized. Built credibility with top engineers and VCs. Persistence in finishing 8-year Master's degree foreshadows company-saving stamina.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACT I: FOUNDING -->
+        <div class="era-section">
+            <div class="era-header">🚀 ACT I: Founding and First Near-Death (1993-1996)</div>
+            <div class="timeline">
+                <div class="event founding">
+                    <div class="event-date">November 1992</div>
+                    <div class="event-title">The Denny's Pitch</div>
+                    <div class="event-people">👥 Jensen Huang, Chris Malachowsky, Curtis Priem</div>
+                    <div class="event-content">
+                        Two Sun engineers pitch Jensen at his favorite restaurant: <strong>Denny's</strong>. The idea: Make 3D graphics (currently requiring $100K+ SGI workstations) accessible on consumer PCs. Jensen orders his go-to: <strong>The Super Bird</strong> sandwich.
+                        <div class="stats-box">
+                            <div class="stat">
+                                <span class="stat-number">$100K+</span>
+                                <span class="stat-label">Cost of SGI Workstation</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">1993</span>
+                                <span class="stat-label">Doom Released</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">90+</span>
+                                <span class="stat-label">Graphics Chip Startups</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        The pitch seemed fundable but had hidden flaws: they'd need to evangelize developers and make technical decisions for an immature industry. Being first-mover would backfire.
+                    </div>
+                </div>
+
+                <div class="event founding">
+                    <div class="event-date">1993</div>
+                    <div class="event-title">NVIDIA Founded</div>
+                    <div class="event-people">👥 Jensen (CEO), Chris, Curtis | 💰 Sequoia Capital, Sutter Hill</div>
+                    <div class="event-content">
+                        <strong>Name:</strong> "NV" = next version + "invidia" (Latin for envy)<br>
+                        <strong>Strategy:</strong> Create proprietary 3D graphics standard, build custom APIs<br>
+                        <strong>Market:</strong> 90+ competitors starting simultaneously, no clear standards
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        First-mover advantage... or first-mover curse? NVIDIA assumed they could set standards alone—critical mistake.
+                    </div>
+                </div>
+
+                <div class="event founding">
+                    <div class="event-date">1993-1995</div>
+                    <div class="event-title">The NV1 Era—Wrong Decisions</div>
+                    <div class="event-people">🎮 Partnership with Sega</div>
+                    <div class="event-content">
+                        <strong>Bad Decision #1:</strong> Choose <span style="color: #ff4444;">quadrilaterals</span> as polygon primitive (4 vertices)<br>
+                        <strong>Bad Decision #2:</strong> Design for expensive memory ($200 component cost)<br>
+                        <strong>Microsoft Response:</strong> Launches Direct3D using <span style="color: #76b900;">triangles</span> (3 vertices—most efficient)<br>
+                        <strong>Moore's Law:</strong> Memory prices crash; competitors' chips cost $50
+                        
+                        <div class="competitive-landscape">
+                            <div class="competitor nvidia">
+                                <strong>NVIDIA</strong><br>
+                                Quadrilaterals<br>
+                                Proprietary API<br>
+                                $200 memory cost
+                            </div>
+                            <div class="competitor microsoft">
+                                <strong>Microsoft</strong><br>
+                                Triangles<br>
+                                Direct3D standard<br>
+                                89 companies adopt
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        Being first-mover backfired. Didn't anticipate exponential Moore's Law curves or wait for industry standards. Triangle = simplest 2D shape possible for building 3D graphics.
+                    </div>
+                </div>
+
+                <div class="event near-death-1 inflection-point">
+                    <div class="event-date">1996</div>
+                    <div class="event-title">💀 EXISTENTIAL CRISIS #1: "Nine Months to Live"</div>
+                    <div class="event-people">👥 Jensen, Chris, Curtis | 100+ engineers</div>
+                    <div class="event-content">
+                        <strong>The Perfect Storm:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>❌ Sega abandons NV1/quadrilateral approach</li>
+                            <li>❌ Halfway through developing NV2 for Dreamcast</li>
+                            <li>❌ Only 9 months of runway left</li>
+                            <li>❌ Wrong standards (quadrilaterals vs triangles)</li>
+                            <li>❌ Wrong cost structure ($200 vs $50)</li>
+                            <li>❌ 100+ engineers sold on vision that's "toast"</li>
+                        </ul>
+                        
+                        <div class="quote-box">
+                            "We need to throw it all out if we're going to survive. The only thing we can do is standardize on Microsoft Direct3D like everyone else. Our only shot is to compete on performance and become the best chip in this sea of commodity chips."
+                            <div class="quote-author">— Jensen Huang to co-founders (who didn't want to do this)</div>
+                        </div>
+                        
+                        <strong>The Decision:</strong> Lay off 70% of company (~35 people remain). Abandon everything. Adopt Microsoft's standard. Compete on pure engineering performance.
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        Intellectual honesty saves the company. Most companies would've died. Jensen forces pivot despite ego, sunk costs, and co-founders' resistance. "My will to survive exceeds almost everybody else's will to kill me."
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACT II: THE MIRACLE -->
+        <div class="era-section">
+            <div class="era-header">⚡ ACT II: The RIVA 128 Miracle (1996-1997)</div>
+            <div class="timeline">
+                <div class="event miracle inflection-point">
+                    <div class="event-date">1996</div>
+                    <div class="event-title">🎲 The Impossible Plan</div>
+                    <div class="event-people">👥 35 remaining employees</div>
+                    <div class="event-content">
+                        <strong>The Challenge:</strong> Design new chip from scratch in 9 months (normal: 18-24 months)
+                        
+                        <div class="stats-box">
+                            <div class="stat">
+                                <span class="stat-number">9</span>
+                                <span class="stat-label">Months to Ship</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">18-24</span>
+                                <span class="stat-label">Normal Timeline</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">$1M</span>
+                                <span class="stat-label">Emulator Cost (1/3 of cash)</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" style="color: #ff4444;">1 fps</span>
+                                <span class="stat-label">per 30 seconds (emulation speed)</span>
+                            </div>
+                        </div>
+                        
+                        <strong>The Emulation Gamble:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>💰 Spend $1M on new emulation technology (1/3 of remaining cash)</li>
+                            <li>🐌 Emulator runs at 1 frame per 30 seconds (vs 30-60 fps normal)</li>
+                            <li>👁️ Engineers must debug by watching frame-by-frame, painfully slow</li>
+                            <li>⚠️ Skip prototype phase entirely—go straight to manufacturing</li>
+                            <li>🏭 Order 100,000 units with zero physical testing</li>
+                        </ul>
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        The most insane bet in semiconductor history. NVIDIA was the only customer of this emulation startup (which later went out of business). No other option but to go all-in.
+                    </div>
+                </div>
+
+                <div class="event miracle inflection-point">
+                    <div class="event-date">1997</div>
+                    <div class="event-title">🎯 RIVA 128 Ships—"A Freaking Beast"</div>
+                    <div class="event-content">
+                        <strong>The Results:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>✅ Team completes design in ~4 months</li>
+                            <li>✅ Call foundry: "Tape it out. Make 100,000 units."</li>
+                            <li>✅ Foundry: "You guys sure?" | NVIDIA: "Yup."</li>
+                            <li>🚀 Chip is extremely powerful vs. competition</li>
+                            <li>⚠️ But only 2/3 of Direct3D blend modes work</li>
+                            <li>⚠️ One-third crashes completely</li>
+                        </ul>
+                        
+                        <strong>The Developer Tour:</strong><br>
+                        Jensen personally visits game developers:<br>
+                        <em>"What do you really need more than these 8 blend modes? Just use those for now. They're so good. You're going to love them."</em>
+                        
+                        <div class="quote-box">
+                            "Consumers will buy hardware and games based on quality of graphics. People are willing to make a lot of compromises in service of performance."
+                            <div class="quote-author">— Key Discovery</div>
+                        </div>
+                        
+                        <div class="stats-box">
+                            <div class="stat">
+                                <span class="stat-number">1M</span>
+                                <span class="stat-label">Units Sold</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">4</span>
+                                <span class="stat-label">Months</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">2/3</span>
+                                <span class="stat-label">Features Working</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        NVIDIA discovered PC gaming dynamics: consumers choose hardware, developers follow users, performance > everything. Company survives. Establishes six-month shipping cycle.
+                    </div>
+                </div>
+
+                <div class="event miracle">
+                    <div class="event-date">1997-1999</div>
+                    <div class="event-title">The Moore's Law² Era</div>
+                    <div class="event-content">
+                        <strong>NVIDIA's Advantage:</strong> Six-month shipping cycle vs industry's 18-24 months
+                        
+                        <div class="competitive-landscape">
+                            <div class="competitor nvidia">
+                                <strong>NVIDIA</strong><br>
+                                Performance doubles every 6 months<br>
+                                <span style="color: #76b900;">3X Moore's Law</span>
+                            </div>
+                            <div class="competitor" style="border-left-color: #888;">
+                                <strong>Industry Standard</strong><br>
+                                Performance doubles every 18-24 months<br>
+                                Normal Moore's Law
+                            </div>
+                        </div>
+                        
+                        <strong>Market Dynamics Discovered:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>🎮 Consumers choose graphics card (OEM or aftermarket)</li>
+                            <li>👨‍💻 Developers target most common performant cards</li>
+                            <li>📅 Developers pre-plan for cards launching with games</li>
+                            <li>⚡ Performance > Features every single time</li>
+                        </ul>
+                        
+                        <strong>Far Cry Example (mid-2000s):</strong> Mediocre gameplay, incredible graphics → massive sales. People built "towers of gasoline barrels" to crash underpowered systems.
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        Process innovation from necessity created sustainable 3X competitive advantage. This six-month cycle, born from near-death crisis, became NVIDIA's moat.
+                    </div>
+                </div>
+
+                <div class="event ipo-era">
+                    <div class="event-date">1999</div>
+                    <div class="event-title">IPO—But Not Safe Yet</div>
+                    <div class="event-content">
+                        NVIDIA goes public with strong momentum but faces new challenge:
+                        <strong>How to avoid commoditization in standardized market with 90 competitors?</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACT III: INTEL THREAT -->
+        <div class="era-section">
+            <div class="era-header">🛡️ ACT III: The Intel Threat (1999-2002)</div>
+            <div class="timeline">
+                <div class="event intel-threat">
+                    <div class="event-date">Late 1990s</div>
+                    <div class="event-title">The Commoditization Pattern</div>
+                    <div class="event-content">
+                        <strong>The Pattern:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>📡 Network cards → Integrated into motherboards</li>
+                            <li>🔊 Sound cards → Integrated into motherboards</li>
+                            <li>🎮 Graphics cards → Next obvious target?</li>
+                        </ul>
+                        
+                        <strong>Intel's Strategy:</strong> Dominate motherboard chipsets, integrate peripherals, shrink standalone card market to niche enthusiasts.
+                        
+                        <div class="competitive-landscape">
+                            <div class="competitor intel">
+                                <strong>Intel</strong><br>
+                                Dominant in motherboards<br>
+                                Integrating peripherals<br>
+                                Targeting graphics next
+                            </div>
+                            <div class="competitor nvidia">
+                                <strong>NVIDIA</strong><br>
+                                Standalone GPU maker<br>
+                                Facing existential threat<br>
+                                Need new strategy
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        NVIDIA must prove GPUs are too important/complex to commoditize, or face slow death as niche enthusiast brand.
+                    </div>
+                </div>
+
+                <div class="event intel-threat inflection-point">
+                    <div class="event-date">2000-2001</div>
+                    <div class="event-title">🧠 The Programmable Shader Revolution</div>
+                    <div class="event-content">
+                        <strong>NVIDIA's Innovation:</strong> Programmable shaders (vs fixed-function pipeline)
+                        
+                        <strong>Key Developments:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>💻 Creates <strong>Cg (C for Graphics)</strong> programming language</li>
+                            <li>🤝 Partners with Microsoft to make it DirectX standard</li>
+                            <li>🎯 Repositions GPU as <strong>specialized programmable processor</strong></li>
+                            <li>📚 Builds developer ecosystem and tools</li>
+                        </ul>
+                        
+                        <div class="quote-box">
+                            "Graphics processing is too complex to integrate into motherboards. It needs to be a standalone, continuously evolving processor with its own programming ecosystem."
+                            <div class="quote-author">— NVIDIA's Pitch to Industry</div>
+                        </div>
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        Made GPUs fundamentally different from sound/network cards. Not just hardware, but a computing platform requiring ongoing software/driver development. Un-commoditizable.
+                    </div>
+                </div>
+
+                <div class="event intel-threat">
+                    <div class="event-date">2001</div>
+                    <div class="event-title">🎮 The Xbox Deal—Strategic Necessity</div>
+                    <div class="event-people">🤝 Microsoft partnership</div>
+                    <div class="event-content">
+                        <strong>Deal Terms:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>💰 $500M/year revenue (NVIDIA's total: $1B)</li>
+                            <li>⚠️ Very low gross margins</li>
+                            <li>✅ Microsoft support for Cg language</li>
+                            <li>✅ DirectX as evolving platform commitment</li>
+                            <li>✅ Protection from Intel commoditization</li>
+                            <li>✅ Microsoft becomes primary PC partner too</li>
+                        </ul>
+                        
+                        <div class="stats-box">
+                            <div class="stat">
+                                <span class="stat-number">$500M</span>
+                                <span class="stat-label">Xbox Annual Revenue</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">$1B</span>
+                                <span class="stat-label">Total NVIDIA Revenue</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" style="color: #ff4444;">Low</span>
+                                <span class="stat-label">Gross Margins</span>
+                            </div>
+                        </div>
+                        
+                        <strong>Consoles NVIDIA Powered:</strong>
+                        <ol style="margin-left: 20px; margin-top: 10px;">
+                            <li>Xbox (2001) - Strategic necessity</li>
+                            <li>PlayStation 3 (Part II)</li>
+                            <li>Nintendo Switch (much later)</li>
+                        </ol>
+                        
+                        <div class="quote-box">
+                            "There are a lot of things we could spend our resources doing. If I don't think we can do anything really unique and special and change the world, then we have better things to spend our resources on."
+                            <div class="quote-author">— Jensen (later, on why NVIDIA avoids most console deals)</div>
+                        </div>
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        Microsoft deal saved NVIDIA from Intel but at cost of low margins and dependency. Strategic win, financial compromise. Xbox 360 later goes to ATI (not NVIDIA).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACT IV: THE SQUEEZE -->
+        <div class="era-section">
+            <div class="era-header">🔥 ACT IV: Out of the Frying Pan, Into the Fire (2002-2006)</div>
+            <div class="timeline">
+                <div class="event strategic-pivot">
+                    <div class="event-date">2001-2004</div>
+                    <div class="event-title">The Margin Squeeze</div>
+                    <div class="event-content">
+                        <div class="stats-box">
+                            <div class="stat">
+                                <span class="stat-number" style="color: #ff4444;">29%</span>
+                                <span class="stat-label">2004 Gross Margins</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" style="color: #76b900;">66%</span>
+                                <span class="stat-label">2022 Gross Margins</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">83%</span>
+                                <span class="stat-label">Standalone GPU Market Share</span>
+                            </div>
+                        </div>
+                        
+                        <strong>The Power Problem:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>✅ Product/market fit: Achieved</li>
+                            <li>❌ Power (sustainable economic profit): Not achieved</li>
+                            <li>❌ Switching costs? Not really (CG language exists but not strong)</li>
+                            <li>⚠️ Process power? Six-month cycle compressing as competitors catch up</li>
+                            <li>❌ Microsoft wants to commoditize all suppliers</li>
+                        </ul>
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        NVIDIA won the battle (survived 90 competitors) but not the war (sustainable profitability). Had product/market fit but not power (Hamilton Helmer framework).
+                    </div>
+                </div>
+
+                <div class="event strategic-pivot">
+                    <div class="event-date">2005-2006</div>
+                    <div class="event-title">Revenue Flattening</div>
+                    <div class="event-content">
+                        <strong>Multiple Headwinds:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>📉 Xbox generation ending</li>
+                            <li>❌ Xbox 360 doesn't use NVIDIA (major revenue loss)</li>
+                            <li>📊 Revenue growth stalling</li>
+                            <li>💸 Operating expenses rising (investing in new area)</li>
+                        </ul>
+                        
+                        <div class="quote-box">
+                            "This looks like yet another Silicon Valley startup that had immense product/market fit and top-line revenue soared, but now we're coming to the end of that and there's not a lot of sustainable economic profit or operating cash flow."
+                            <div class="quote-author">— Potential investor perspective</div>
+                        </div>
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        Company at crossroads. Must find new source of power or face slow decline. Success story or cautionary tale?
+                    </div>
+                </div>
+
+                <div class="event strategic-pivot inflection-point">
+                    <div class="event-date">2006</div>
+                    <div class="event-title">⚡ EXISTENTIAL CRISIS #3: Intel's Larrabee + The CUDA Bet</div>
+                    <div class="event-content">
+                        <strong>The Threat: Intel Project Larrabee</strong><br>
+                        Intel announces full-fledged GPU division—second serious foray into GPU market. NVIDIA's worst nightmare realized.
+                        
+                        <div class="swimlane-container">
+                            <h3 style="margin-bottom: 20px; color: #76b900;">Competitive Landscape 2006</h3>
+                            <div class="swimlane">
+                                <div class="swimlane-label">🔷 Intel</div>
+                                <div class="swimlane-events">
+                                    <div class="swimlane-event">Announces Larrabee</div>
+                                    <div class="swimlane-event">Unlimited resources</div>
+                                    <div class="swimlane-event">Motherboard dominance</div>
+                                </div>
+                            </div>
+                            <div class="swimlane">
+                                <div class="swimlane-label">💚 NVIDIA</div>
+                                <div class="swimlane-events">
+                                    <div class="swimlane-event">Xbox revenue gone</div>
+                                    <div class="swimlane-event">Margins compressed</div>
+                                    <div class="swimlane-event">Betting on CUDA</div>
+                                    <div class="swimlane-event">Scientific computing push</div>
+                                </div>
+                            </div>
+                            <div class="swimlane">
+                                <div class="swimlane-label">🔴 ATI/AMD</div>
+                                <div class="swimlane-events">
+                                    <div class="swimlane-event">Different strategy</div>
+                                    <div class="swimlane-event">Xbox 360 deal</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <strong>NVIDIA's Counter: CUDA (Compute Unified Device Architecture)</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>🧬 Position GPUs as general-purpose parallel processors</li>
+                            <li>🔬 Target scientific computing, simulation, research</li>
+                            <li>💡 The Simulation Insight: Physics, aerospace, drug discovery all need simulation</li>
+                            <li>⚡ Wind tunnels → Software simulation (Boeing, SpaceX, etc.)</li>
+                            <li>🎯 GPUs perfect for parallel computation workloads</li>
+                        </ul>
+                        
+                        <div class="quote-box">
+                            "How big is scientific computing market?"<br><br>
+                            <strong>The Bull Case (in hindsight):</strong> Scientific computing would become way more than scientific computing. Acceleration of ALL parallel computing. 18 years of GPU development = unique position for machine learning.<br><br>
+                            <strong>The Bear Case (at the time):</strong> Uncertain market size. Intel has unlimited resources. Spending heavily on unproven bet.
+                            <div class="quote-author">— The debate investors faced</div>
+                        </div>
+                    </div>
+                    <div class="event-impact">
+                        <div class="event-impact-title">💡 Why It Matters:</div>
+                        Third bet-the-company decision. This pivot—covered fully in Part II—transforms NVIDIA from graphics company into AI/ML platform, eventually leading to $800B+ valuation (2022). The gaming market also proves 10-100X bigger than predicted.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INSIGHTS SECTION -->
+        <div class="insights-section">
+            <h2>📊 EPISODE INSIGHTS & LESSONS</h2>
+            
+            <div class="insight-card">
+                <h3>🎯 The Three Near-Death Experiences</h3>
+                <p><strong>1996:</strong> Wrong standards (quadrilaterals), wrong assumptions (memory costs), abandoned by Sega → <em>9 months to live</em></p>
+                <p><strong>1997:</strong> Six-month RIVA 128 development using 1fps emulation, skip prototypes entirely → <em>$1M bet (1/3 of cash)</em></p>
+                <p><strong>2001-2006:</strong> Intel commoditization threat, margin compression, uncertain CUDA pivot → <em>Revenue flattening, existential questions</em></p>
+            </div>
+
+            <div class="insight-card">
+                <h3>💡 Core Lesson: Intellectual Honesty</h3>
+                <div class="quote-box">
+                    "Intellectual honesty is the cornerstone of NVIDIA's culture."
+                    <div class="quote-author">— Jensen Huang</div>
+                </div>
+                <p><strong>What it meant:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Admitting NV1/quadrilateral approach was wrong</li>
+                    <li>Pivoting to Microsoft standards despite ego</li>
+                    <li>Telling engineers their exciting vision was "toast"</li>
+                    <li>Betting company three times on uncomfortable truths</li>
+                </ul>
+            </div>
+
+            <div class="insight-card">
+                <h3>🔍 What Made NVIDIA Unique?</h3>
+                <p><strong>1. Necessity → Innovation:</strong> Each near-death crisis forced breakthrough thinking</p>
+                <p><strong>2. Six-Month Cycle = 3X Moore's Law:</strong> Process innovation from desperation became sustainable advantage</p>
+                <p><strong>3. Platform > Peripheral:</strong> Programmable shaders made GPUs un-commoditizable</p>
+                <p><strong>4. Performance > Everything:</strong> Consumers buy on graphics quality, developers follow</p>
+                <p><strong>5. Strategic Patience:</strong> Low-margin Xbox deal for strategic protection from Intel</p>
+            </div>
+
+            <div class="insight-card">
+                <h3>📈 The Microsoft Dynamic—A Study in Power</h3>
+                <p><strong>Microsoft's Position:</strong> Didn't develop GPUs themselves, created DirectX standard instead, let 90 companies compete on implementation</p>
+                <p><strong>Microsoft Profited From:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>NVIDIA beating 89 competitors (standardization)</li>
+                    <li>GPU not being commoditized by Intel (programmability)</li>
+                    <li>Both without taking any risk</li>
+                </ul>
+                <p><strong>Grade for NVIDIA (1993-2006):</strong> <span style="color: #76b900; font-size: 1.5em;">A</span> (not A+)</p>
+                <p><em>Only company besides ATI to survive from 90 competitors. Created entire industry. But Microsoft captured significant value without risk.</em></p>
+            </div>
+
+            <div class="insight-card">
+                <h3>🎮 Patterns & Connections to Broader Themes</h3>
+                <p><strong>Climbing Two Mountains (Hamilton Helmer):</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li><strong>First mountain:</strong> Product/market fit (✅ NVIDIA achieved by 2000)</li>
+                    <li><strong>Second mountain:</strong> Power (❌ NVIDIA hadn't achieved by 2006)</li>
+                    <li><em>These are separate journeys requiring different strategies</em></li>
+                </ul>
+                
+                <p><strong>Microsoft's 90s/2000s Unprecedented Power:</strong> DOJ case "crippled it probably for good." Microsoft didn't develop certain DNA (mobile, potentially ML) because it didn't have to fight. NVIDIA forced to fight, developed capabilities Microsoft didn't need.</p>
+            </div>
+
+            <div class="insight-card">
+                <h3>🌟 The Setup for Part II (2007-2022)</h3>
+                <p><strong>What NVIDIA Built in First 13 Years:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>18 years of GPU architecture expertise</li>
+                    <li>Six-month development cycle capability</li>
+                    <li>Deep understanding of parallel processing</li>
+                    <li>Programmable shader ecosystem</li>
+                    <li>Developer relationships and tools</li>
+                </ul>
+                
+                <div class="quote-box">
+                    "Imagine if you started a business in the early 90s doing a thing that seemed like a small market at the time, but you did the thing, and then it turns out that gave you line of sight to something that the same technology was uniquely able to do, that was 10 times bigger than the original thing. And no one else was even close to you because you had 18 years of building stuff."
+                    <div class="quote-author">— The Unbelievable Story</div>
+                </div>
+                
+                <p><strong>What Was Coming:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>🧠 CUDA as full platform for general computation</li>
+                    <li>🤖 Machine learning revolution (GPUs perfect for ML)</li>
+                    <li>🏢 Data center transformation</li>
+                    <li>🎮 Gaming market 10-100X bigger than predicted</li>
+                    <li>💪 How NVIDIA finally achieved Power</li>
+                </ul>
+            </div>
+
+            <div class="insight-card">
+                <h3>🎓 Jensen Huang—The Full Arc</h3>
+                <ul style="margin-left: 20px;">
+                    <li>👊 Reform school roommate with stab wounds → Weightlifting at age 9</li>
+                    <li>🏓 Table tennis national champion → Sports Illustrated</li>
+                    <li>💼 AMD → LSI Logic → Sun Microsystems embedded work</li>
+                    <li>🎓 8 years for Stanford Master's while working full-time</li>
+                    <li>💀 Three times betting company and nearly going bankrupt</li>
+                    <li>🏎️ Drives Toyota Supra (Fast & Furious style), survives major accident</li>
+                    <li>🧥 Signature leather jackets</li>
+                    <li>💪 Can bench press more than you</li>
+                    <li>🥪 Still loves Denny's (The Super Bird)</li>
+                </ul>
+                
+                <div class="quote-box">
+                    "My will to survive exceeds almost everybody else's will to kill me."
+                    <div class="quote-author">— Jensen Huang</div>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <h3>🌍 Net Positive for Humanity</h3>
+                <div class="quote-box">
+                    "We need way less energy to do way more interesting stuff that's good for humans because NVIDIA exists. Without doing this first 13 years, they would not have laid the groundwork to be able to do all of that in the future."
+                    <div class="quote-author">— Ben Gilbert, Acquired</div>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <h3>📊 The Numbers (2006 vs 2022)</h3>
+                <div class="stats-box">
+                    <div class="stat">
+                        <span class="stat-number">29%</span>
+                        <span class="stat-label">2004 Gross Margins</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">66%</span>
+                        <span class="stat-label">2022 Gross Margins</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">83%</span>
+                        <span class="stat-label">Standalone GPU Market Share</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">$20B</span>
+                        <span class="stat-label">Jensen's Net Worth (2022)</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">#8</span>
+                        <span class="stat-label">Most Valuable Company (2022)</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">90→1</span>
+                        <span class="stat-label">Competitors (1993 → 2006)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <h2 style="color: #76b900; margin-bottom: 20px;">🎬 Looking Ahead to Part II</h2>
+            <p style="font-size: 1.2em; margin-bottom: 20px;">
+                <strong>The Next Episode Covers (2007-2022):</strong><br>
+                CUDA platform evolution • Machine learning revolution • Data center transformation •<br>
+                Cryptocurrency mining boom • AI era beginning • How NVIDIA finally achieved Power
+            </p>
+            <div class="quote-box">
+                "The literally unbelievable story, except that it happens, so you have to believe it."
+                <div class="quote-author">— Ben Gilbert on NVIDIA's Journey</div>
+            </div>
+            <p style="margin-top: 30px; color: #666;">
+                Timeline created from Acquired Podcast: Season 10, Episode 5 (March 27, 2022)<br>
+                Hosts: Ben Gilbert & David Rosenthal
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
